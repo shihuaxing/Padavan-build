@@ -36,6 +36,11 @@ jobs:
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
+    - name: Set Golang
+      run: |
+        cd /opt/hostedtoolcache/go
+        rm -rf /opt/hostedtoolcache/go/1.14.12
+        mv 1.15.5 1.14.12
     - name: Build Firmware
       env:
         TNAME: RM2100
@@ -69,8 +74,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config #MENTOHUST
         echo "CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT=n" >> .config #SCUTCLIENT
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
-        #echo "CONFIG_FIRMWARE_INCLUDE_WING=y" >> .config #wing
-        #echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #TROJAN
+        echo "CONFIG_FIRMWARE_INCLUDE_WING=y" >> .config #wing
+        echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #TROJAN
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
         echo "CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=n" >> .config #DNSFORWARDER
